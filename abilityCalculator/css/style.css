@@ -1,0 +1,12 @@
+input {
+    text-align: center;
+}
+input[type="number"] {
+    width: 4em;
+}
+input[type="text"] {
+    width: 3em;
+}
+th {
+    text-align: center;
+}
