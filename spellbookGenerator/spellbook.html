@@ -5,22 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Spellbook</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> 
+    <title>Spellbook Generator</title>
     <style>
-
+        * {
+            font-family: 'Lato', sans-serif;
+        }
     </style>
 </head>
 <body>
-    <!-- 
-        button with listener: #generate-spells 
-        select menu: #class-type (with options corresponding to "spell_level")
-        level of class: #class-level
-        ability modifier: #ability-mod
-        div where content is generated: #print
-    -->
     <div class="container">
         <div class="d-flex flex-row">
-            <h1>Headline</h1>
+            <h1>Spellbook Generator</h1>
         </div>
         <div class="d-flex flex-row">
             <div class="col-4 text-center px-0">
@@ -28,56 +24,66 @@
                     <li class="list-group-item m-0 p-0 border-0">
                         <select id="class-type" class="form-control">
                             <option value="sorcerer/wizard">Wizard</option>
+                            <option value="magus">Magus</option>
                         </select>
                         <div class="row mt-2">
-                            <div class="col ">
+                            <div class="col pr-1">
                                 <h6>Level</h6>
-                                <input type="number" id="class-level" class="form-control" placeholder="1" min="0" max="20">
+                                <input type="number" id="class-level" class="form-control" value="1" min="0" max="20">
                             </div>
-                            <div class="col">
+                            <div class="col pl-1">
                                 <h6>Mod</h6>
-                                <input type="number" id="ability-mod" class="form-control" min="0" placeholder="0">
+                                <input type="number" id="ability-mod" class="form-control" min="0" value="0">
                             </div>
                         </div>
                         
                         <button id="generate-spells" class="btn btn-block btn-primary mt-2">Generate spellbook</button>
                     </li>
                 </ul>
-                
+                <div>
+                    <p>
+                        NYI:<br>Spell books for other classes, like the Magus
+                        <br><br>
+                        Future plans:<br>
+                        Radical revision requiered, but a possibility of adding spells to spesific level with an interface.
+                    </p>                        
+                </div>
             </div>
             <div class="col-8">
                 <div id="print"></div>
             </div>
         </div>
         
-        <div class="d-flex flex-row">
+        
+        <!--
+            NB! the code as it is mixes in antipaladin spells into the paladin spell list
+            This can maybe be fixed with regular expressions aka. Regex. See into it if 
+            a paladin/antipaladin spell list becomes necessary.
             
-            <!--
-                <option value="cleric/oracle">Cleric and Oracle</option>
-                <option value="paladin">Paladin</option>
-                <option value="magus">Magus</option>
-                <option value="summoner">Summoner</option>
-                <option value="witch">Witch</option>
-                <option value="bloodrager">Bloodrager</option>
-                <option value="psychic">Psychic</option>
-                <option value="spiritualist">Spiritualist</option>
-                <option value="antipaladin">Antipaladin</option>
-                <option value="shaman">Shaman</option>
-                <option value="occultist">Occultist</option>
-                <option value="mesmerist">Mesmerist</option>
-                <option value="alchemist">Alchemist</option>
-                <option value="druid">Druid</option>
-                <option value="ranger">Ranger</option>
-                <option value="inquisitor">Inquisitor</option>
-                <option value="bard">Bard</option>
-                
-                paladin/antipaladin mixup:
-                check if paladin is at index 0, or if it is " paladin"
-                since spell_level fields that start with paladin do not have a space in the start,
-                and antipaladin has the word "paladin in it"
-            -->
+            <option value="cleric/oracle">Cleric and Oracle</option>
+            <option value="paladin">Paladin</option> 
+            <option value="magus">Magus</option>
+            <option value="summoner">Summoner</option>
+            <option value="witch">Witch</option>
+            <option value="bloodrager">Bloodrager</option>
+            <option value="psychic">Psychic</option>
+            <option value="spiritualist">Spiritualist</option>
+            <option value="antipaladin">Antipaladin</option>
+            <option value="shaman">Shaman</option>
+            <option value="occultist">Occultist</option>
+            <option value="mesmerist">Mesmerist</option>
+            <option value="alchemist">Alchemist</option>
+            <option value="druid">Druid</option>
+            <option value="ranger">Ranger</option>
+            <option value="inquisitor">Inquisitor</option>
+            <option value="bard">Bard</option>
             
-        </div>
+            paladin/antipaladin mixup:
+            check if paladin is at index 0, or if it is " paladin"
+            since spell_level fields that start with paladin do not have a space in the start,
+            and antipaladin has the word "paladin in it"
+        -->
+        
         
     </div>
     
@@ -103,7 +109,7 @@
             generateSpells();
         });
         
-        function numeral(number) {
+        function plural(number) {
             switch (number) {
                 case 1: return "1st"
                 break;
@@ -146,7 +152,7 @@
             let spellsKnown = [0,3+parseInt($("#ability-mod").val())];
             
             // different starting amount of spells if other class is selected. Magus, Alchemist etc.
-
+            
             //determines how many spells known a wizard gets through leveling
             for (let i = 2; i <= level; i++) {
                 if (isNaN(spellsKnown[Math.ceil(i/2)]) && spellsKnown.length <= 9) {
@@ -158,25 +164,26 @@
                     spellsKnown[9] += 2
                 }
             }
-            
             let currentSpellbook = [[],[],[],[],[],[],[],[],[],[]];
             
             // i = spell level
             for (let i = 1; i < spellsKnown.length; i++) {
+                console.log("spell level: "+i);
                 // j = spell#
                 for (let j = 0; j < spellsKnown[i]; j++) {
                     let r = Math.floor((Math.random() * sortedCurrentSpells[i].length));
                     currentSpellbook[i][j] = sortedCurrentSpells[i][r];
-                    sortedCurrentSpells[i].splice(r,r+1);
+                    sortedCurrentSpells[i].splice(r,1);
                 }
             }
-            //console.log(currentSpellbook);
+            console.log(sortedCurrentSpells);
             
             // i = every spell level 
             for (let i = 1; i < spellsKnown.length; i++) {
                 let html = "<p>";
-                    html += "<strong>"+numeral(i)+" level spells</strong><br>";
+                    html += "<strong>"+plural(i)+" level spells</strong><br>";
                     for (let j = 0; j < currentSpellbook[i].length; j++) {
+                        //console.log("i: "+i+", j: "+j);
                         html += currentSpellbook[i][j].name+"<br>";
                     }
                     html += "</p>";

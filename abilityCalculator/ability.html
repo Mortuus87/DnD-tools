@@ -9,19 +9,15 @@
     <title>Calculator</title>
 </head>
 <body>
-    <div class="container mt-3 bg-dark text-center ">
-        <div class="col"><h1 class="text-light">Ability Calculator</h1></div>
+    <div class="container mt-3 text-center ">
+        <div class="col"><h1>Ability Calculator</h1></div>
         <div class="row">
             <div class="col"> <!-- LEFT FIELD-->
-                <ul class="list-group mb-2">
-                    <li class="list-group-item">The points stated is calculated with a base of 10 in each ability. Some systems start with 7 or 8, and gives you a greater amount of points to compensate<br>For example: In the case of a starting value of 8, the Standard Fantasy point sum would equal 27 available points to spend</li>
-                </ul>
-                
                 <table class="table-borderless mx-auto">
                     <tbody>
                         <tr>
                             <th>
-                                <select id="point-amount-select" class="form-control">
+                                <select id="point-amount-select" class="form-control ">
                                     <option value="15">Standard Fantasy (15 points)</option>
                                     <option value="10">Low-powered (10 points)</option>
                                     <option value="20">High Fantasy (20 points)</option>
@@ -38,6 +34,11 @@
                     </tr>
                 </tbody>
             </table> 
+            <ul class="list-group mb-2">
+                <li class="list-group-item">The points stated is calculated with a base of 10 in each ability. Some systems start with 7 or 8, and gives you a greater amount of points to compensate<br>For example: In the case of a starting value of 8, the Standard Fantasy point sum would equal 27 available points to spend</li>
+            </ul>
+            
+            
             <div class="col-xs-1 my-2" >
                 <button type="button" class="btn btn-block btn-primary btn-sm" id="generate-ability-array">Generate random</button>
                 <button type="button" class="btn btn-block btn-primary btn-sm" id="dice-generate">Roll 4d6, drop lowest</button>
@@ -49,7 +50,7 @@
         
         <div class="col"> <!-- GREEN FIELD -->
             
-            <table class="table-borderless mx-auto text-light">
+            <table class="table-borderless mx-auto">
                 <tbody>
                     <tr>
                         <th></th>
@@ -105,7 +106,7 @@
             </table>
             
             <!-- Under ability table -->
-
+            
         </div>
     </div>
     
