@@ -12,19 +12,21 @@
     <nav class="navbar navbar-expand-xs navbar-dark bg-dark text-light">
         <div class="container">
             <h5>Navbar headline</h5>
-            <h6>dropdown for nav to other generators</h6>
+            <h6>dropdown for nav to other generators [NYI]</h6>
         </div>
     </nav>
     
-    <div class="container">
+    <div class="container mt-3">
         <div class="row">
-            <div class="col-4">
+            <div class="col-md-4">
                 <h1>Settlement generator</h1>
                 <!-- buttons, dropdowns, settings -->
                 <h6>This is where the settings go</h6>
                 <h6>Settings means settlement size, and population</h6>
+                <input type="text" class="form-control" placeholder="population">
+                <input type="text" class="form-control" placeholder="size">
             </div>
-            <div class="col">
+            <div class="col-md-8">
                 <div id="output"></div>
             </div>
         </div>
@@ -57,17 +59,19 @@
         function randomProperties(data) {
             
             let html = "";
-            html += "<div class='card'><div class='card-body'>";
+            
+            html += "<div class='card'>" + "<div class='card-body'>";
                 html += "<strong>Cultural climate: </strong>"+data.culturalStatus[random(data.culturalStatus.length)]+"<br>";
                 html += "<strong>Ruler status: </strong>"+data.rulerStatus[random(data.rulerStatus.length)]+"<br>";
                 html += "<strong>Notable trait: </strong>"+data.notableTrait[random(data.notableTrait.length)]+"<br>";
                 html += "<strong>Known for: </strong>"+data.knownFor[random(data.knownFor.length)]+"<br>";
-                if (random(3) < 1) {
-                    html += "<strong>Calamity: </strong>"+data.calamity[random(data.calamity.length)]+"<br>";
+                if (random(3) > 1) {
+                    html += "<strong>Recent calamity: </strong>"+data.calamity[random(data.calamity.length)]+"<br>";
                 } else {
-                    html += "<strong>Boon: </strong>"+data.boon[random(data.boon.length)]+"<br>";
+                    html += "<strong>Recent good fortune: </strong>"+data.boon[random(data.boon.length)]+"<br>";
                 }
-                html += "</div></div>";
+                html += "</div>";
+                html += "</div>";
                 
                 $('#output').append(html);
             }     
