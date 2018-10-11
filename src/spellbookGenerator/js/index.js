@@ -1,35 +1,86 @@
-const allSpells = [];
 
 //Initiated in event listener, but may be referenced by other functions. Internalize them in mop-up if possible.
-let type;
-let level;
+
+const allSpells = [];
+
 
 //import the json-file, and copies it into allSpells[]
-$.getJSON("json/PathfinderSpells.json", function (data) {
-    $.each(data, function (key) {
-        allSpells[key] = this;
+$.getJSON("spellbookGenerator/json/PathfinderSpells.json", function (data) {
+    $.each(data.pfSpells, function (key, val) {
+        allSpells[key] = val;
     });
 });
 
 //ActionListeners:
 $("#generate-spells").click(function () {
-    type = $("#class-type").val();
-    level = $("#class-level").val();
-    generateSpells();
+    let type = $("#class-type").val();
+    let level = $("#class-level").val();
+    getValidSpells(type, level);
+    spellSlots(type, level);
+    // generateSpells();
 });
 
 function plural(number) {
     switch (number) {
-        case 1: return "1st"
+        case 1: return "1st";
+        case 2: return "2nd";
+        case 3: return "3rd";
+        default: return number + "th";
+    }
+}
+
+
+function getValidSpells(type, level) {
+    type = "\\b" + type.replace(`\/`, `\/`) + "\\s\\d";
+    let regExpType = new RegExp(type, `i`);
+    const validSpells = [];
+
+    for (const spell of allSpells) {
+        if (regExpType.test(spell.spell_level)) {
+            validSpells.push(spell);
+        }
+    }
+
+    console.log(validSpells)
+}
+
+
+function spellSlots(type, level) {
+    switch (type) {
+        case "sorcerer/wizard":
+            let spellsKnown = [0];
+            console.log("spells known", spellsKnown)
+            spellsKnown[1] = 3 + parseInt($("#ability-mod").val());
+            for (let i = 2; i <= level; i++) {
+                if (isNaN(spellsKnown[Math.ceil(i / 2)]) && spellsKnown.length <= 9) {
+                    spellsKnown[Math.ceil(i / 2)] = 0
+                }
+                if (i < 19) {
+                    spellsKnown[Math.ceil(i / 2)] += 2
+                } else {
+                    spellsKnown[9] += 2
+                }
+            }
+            return console.log(spellsKnown);
             break;
-        case 2: return "2nd"
-            break;
-        case 3: return "3rd"
-            break;
-        default: return number + "th"
+
+        default:
             break;
     }
 }
+
+// Sort spells by spell level
+
+
+
+// Determine number of spells to be picked
+
+// Pick spells 
+
+// Button to lock a spell for the next generator run?
+
+
+// DEPRECATED - BEING REPLACED
 //Main function called when the button is pressed
 function generateSpells() {
     $("#print").empty();
@@ -37,6 +88,7 @@ function generateSpells() {
     let allCurrentSpells = [];
     let sortedSizes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let sortedCurrentSpells = [[], [], [], [], [], [], [], [], [], []];
+
 
     //Starts going through all spells
     for (let spell of allSpells) {

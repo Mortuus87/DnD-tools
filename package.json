@@ -1,0 +1,23 @@
+{
+  "name": "DnD-tools",
+  "version": "1.0.0",
+  "description": "Useful tools i made for myself both as a tool for pen and paper worldbuilding, but also to improve my HTML, CSS, and JS skills.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mortuus87/DnD-tools.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mortuus87/DnD-tools/issues"
+  },
+  "homepage": "https://github.com/Mortuus87/DnD-tools#readme",
+  "devDependencies": {
+    "serve": "^10.0.2"
+  }
+}
