@@ -14,55 +14,69 @@
 </head>
 
 <body>
+
+
     <nav class="navbar navbar-expand-xs navbar-dark bg-dark text-light">
         <div class="container">
-            <h5>Navbar headline</h5>
+            <div class="col">
+                <h5>Navbar headline</h5>
+            </div>
         </div>
     </nav>
+
     <div class="container">
-        <div class="d-flex flex-row">
+        <div class="col">
             <h1>Generator</h1>
         </div>
-        <div class="d-flex flex-row">
-            <div class="col-md-4 text-center px-0">
-                <ul class="list-group">
-                    <li class="list-group-item m-0 p-0 border-0">
-                        <select id="class-type" class="form-control">
-                            <option value="sorcerer/wizard">Sorcerer and Wizard</option>
-                            <option value="cleric/oracle">Cleric and Oracle</option>
-                            <option value="magus">Magus</option>
-                        </select>
-                        <div class="row mt-2">
-                            <div class="col pr-1">
-                                <h6>Level</h6>
-                                <input type="number" id="class-level" class="form-control" value="1" min="0" max="20">
-                            </div>
-                            <div class="col pl-1">
-                                <h6>Ability mod</h6>
-                                <input type="number" id="ability-mod" class="form-control" min="0" value="0">
-                            </div>
-                        </div>
 
-                        <button id="generate-spells" class="btn btn-block btn-primary mt-2">Generate</button>
-                    </li>
-                </ul>
-                <div>
-                    <p>
-                        <br>
-                        Future plans:<br>
-                        Radical revision requiered, but a possibility of adding spells to spesific level with an
-                        interface.
-                    </p>
+        <div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-lg-4 col-md-5">
+
+                        <form>
+                            <div class="row my-2">
+                                <div class="col">
+                                    <label class="my-1 mr-2" for="class-type">Class</label>
+                                    <select class="custom-select" id="class-type">
+                                        <option value="sorcerer/wizard">Wizard</option>
+                                        <option value="magus">Magus</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label for="class-level">Level</label>
+                                    <input type="number" class="form-control" id="class-level" value="5" min="1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="ability-mod">Ability modifier</label>
+                                    <input type="number" class="form-control" id="ability-mod" value="1" min="0"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col mt-3">
+                                    <button type="submit" class="btn btn-block btn-primary" id="generate-spells">Generate</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col-lg-8 col-md-7">
+                        <div id="output">Choose your charactristics, and press the button</div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-8">
-                <div id="print"></div>
-            </div>
         </div>
+    </div>
 
-        <!--
+    <!--
+            <option value="cleric/oracle">Cleric and Oracle</option>
             <option value="paladin">Paladin</option> 
-            <option value="magus">Magus</option>
             <option value="summoner">Summoner</option>
             <option value="witch">Witch</option>
             <option value="bloodrager">Bloodrager</option>
@@ -80,7 +94,7 @@
         -->
 
 
-    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>

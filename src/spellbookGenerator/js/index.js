@@ -1,7 +1,9 @@
 
-//Initiated in event listener, but may be referenced by other functions. Internalize them in mop-up if possible.
+// Global variables
 
-const allSpells = [];
+const allSpells = []; // Holds the full list of all spells.
+let validSpells = []; // Holds valdid spells for a given class. Generated with the button.
+let spellsKnown = []; // Number of each spell level the chosen class has.
 
 
 //import the json-file, and copies it into allSpells[]
@@ -12,13 +14,68 @@ $.getJSON("spellbookGenerator/json/PathfinderSpells.json", function (data) {
 });
 
 //ActionListeners:
-$("#generate-spells").click(function () {
+$("#generate-spells").click(function (e) {
+    e.preventDefault();
+    $("#print").empty();
     let type = $("#class-type").val();
     let level = $("#class-level").val();
-    getValidSpells(type, level);
-    spellSlots(type, level);
-    // generateSpells();
+    console.log("type:", type);
+    console.log("level:", level);
+    validSpells = getValidSpells(type, level);
+    spellSlots(type, level, validSpells);
 });
+
+function getValidSpells(type, level) {
+    //type = "\\b" + type.replace(`\/`, `\/`) + "\\s(\\d)";
+    type = `\\b${type.replace(`\/`, `\/`)}\\s(\\d);`
+    let regExpType = new RegExp(type, `i`);
+    for (const spell of allSpells) {
+        if (regExpType.test(spell.spell_level)) {
+            // extracts the spell level for the given type, and push to array
+            validSpells[spell.spell_level.match(type)[1]].push(spell);
+        }
+    }
+}
+
+// ---------------------
+// Calculate Spell Slots
+
+function spellSlots(type, level) {
+    let highestSpellLevel;
+    let progressionSpeed;
+    spellsKnown = [0]
+    switch (type) {
+
+        case "sorcerer/wizard":
+            highestSpellLevel = 9;
+            progressionSpeed = .5;
+            spellsKnown[1] = 3 + parseInt($("#ability-mod").val());
+            for (let i = 2; i <= level; i++) {
+
+                // Calculates maximum potential spell level
+                let maxSpellLevel = Math.ceil(i * progressionSpeed);
+                //"initializes" any empty spell levels with 0 after to enable +=2
+                spellsKnown.length <= maxSpellLevel ? spellsKnown[maxSpellLevel] = 0 : null;
+                // As long as iteration is under 19, 
+                (i < 19) ? spellsKnown[maxSpellLevel] += 2 : spellsKnown[9] += 2
+            }
+            break
+
+        case "magus":
+            highestSpellLevel = 6;
+            progressionSpeed = (1 / 3)
+            spellsKnown[1] = 3 + parseInt($("#ability-mod").val());
+            for (let i = 2; i <= level; i++) {
+                let maxSpellLevel = Math.ceil(i * progressionSpeed);
+                spellsKnown.length <= maxSpellLevel ? spellsKnown[maxSpellLevel] = 0 : null;
+                i < 19 ? spellsKnown[maxSpellLevel] += 2 : spellsKnown[highestSpellLevel] += 2
+            }
+            break
+        default:
+            break;
+    }
+    console.log(spellsKnown);
+}
 
 function plural(number) {
     switch (number) {
@@ -30,101 +87,29 @@ function plural(number) {
 }
 
 
-function getValidSpells(type, level) {
-    type = "\\b" + type.replace(`\/`, `\/`) + "\\s\\d";
-    let regExpType = new RegExp(type, `i`);
-    const validSpells = [];
-
-    for (const spell of allSpells) {
-        if (regExpType.test(spell.spell_level)) {
-            validSpells.push(spell);
-        }
-    }
-
-    console.log(validSpells)
-}
-
-
-function spellSlots(type, level) {
-    switch (type) {
-        case "sorcerer/wizard":
-            let spellsKnown = [0];
-            console.log("spells known", spellsKnown)
-            spellsKnown[1] = 3 + parseInt($("#ability-mod").val());
-            for (let i = 2; i <= level; i++) {
-                if (isNaN(spellsKnown[Math.ceil(i / 2)]) && spellsKnown.length <= 9) {
-                    spellsKnown[Math.ceil(i / 2)] = 0
-                }
-                if (i < 19) {
-                    spellsKnown[Math.ceil(i / 2)] += 2
-                } else {
-                    spellsKnown[9] += 2
-                }
-            }
-            return console.log(spellsKnown);
-            break;
-
-        default:
-            break;
-    }
-}
-
-// Sort spells by spell level
-
-
-
 // Determine number of spells to be picked
 
 // Pick spells 
 
 // Button to lock a spell for the next generator run?
 
+// Spellbook quirk! - augmentation to certain spell schools etc.
+
+// alignment and specialities
+
 
 // DEPRECATED - BEING REPLACED
 //Main function called when the button is pressed
 function generateSpells() {
-    $("#print").empty();
+
     //Start by resetting variables
     let allCurrentSpells = [];
     let sortedSizes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     let sortedCurrentSpells = [[], [], [], [], [], [], [], [], [], []];
 
-
-    //Starts going through all spells
-    for (let spell of allSpells) {
-
-        //Sorts out spells that match the given caster type
-        //Now has hold of single spell
-        if (spell.spell_level.includes(type)) {
-            allCurrentSpells.push(spell);
-
-            //Finds spell level of the current spell, and stores it in l
-            let l = spell.spell_level.indexOf(type) + type.length + 1;
-            l = spell.spell_level.charAt(l);
-            l = parseInt(l);
-            sortedCurrentSpells[l][sortedSizes[l]] = spell;
-            sortedSizes[l]++;
-        }
-    }
-    //Done with individual spells
-
-
-    // starting spells known by wizards 3+int mod 1st level spells
-    let spellsKnown = [0, 3 + parseInt($("#ability-mod").val())];
-
     // different starting amount of spells if other class is selected. Magus, Alchemist etc.
 
-    //determines how many spells known a wizard gets through leveling
-    for (let i = 2; i <= level; i++) {
-        if (isNaN(spellsKnown[Math.ceil(i / 2)]) && spellsKnown.length <= 9) {
-            spellsKnown[Math.ceil(i / 2)] = 0
-        }
-        if (i < 19) {
-            spellsKnown[Math.ceil(i / 2)] += 2
-        } else {
-            spellsKnown[9] += 2
-        }
-    }
+
     let currentSpellbook = [[], [], [], [], [], [], [], [], [], []];
 
     // i = spell level
