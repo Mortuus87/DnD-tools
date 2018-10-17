@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="spellbookGenerator/css/style.css">
+    <title>Generator</title>
+
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-expand-xs navbar-dark bg-dark text-light">
+        <div class="container">
+            <div class="col">
+                <h5>Navbar headline</h5>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="col">
+            <h1>Generator</h1>
+        </div>
+
+        <div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-lg-4 col-md-5">
+
+                        <form>
+                            <div class="row my-2">
+                                <div class="col">
+                                    <label class="my-1 mr-2" for="class-type">Class</label>
+                                    <select class="custom-select" id="class-type">
+                                        <option value="sorcerer/wizard">Wizard</option>
+                                        <option value="magus">Magus</option>
+                                        <option value="cleric/oracle">Cleric and Oracle</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label for="class-level">Level</label>
+                                    <input type="number" class="form-control" id="class-level" value="5" min="1"
+                                        required>
+                                </div>
+                                <div class="col">
+                                    <label for="ability-mod">Ability modifier</label>
+                                    <input type="number" class="form-control" id="ability-mod" value="1" min="0"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col mt-3">
+                                    <button type="submit" class="btn btn-block btn-primary" id="generate-spells">Generate</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="col-lg-8 col-md-7">
+                        <div id="output">Choose your charactristics, and press the button</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+            <option value="cleric/oracle">Cleric and Oracle</option>
+            <option value="paladin">Paladin</option> 
+            <option value="summoner">Summoner</option>
+            <option value="witch">Witch</option>
+            <option value="bloodrager">Bloodrager</option>
+            <option value="psychic">Psychic</option>
+            <option value="spiritualist">Spiritualist</option>
+            <option value="antipaladin">Antipaladin</option>
+            <option value="shaman">Shaman</option>
+            <option value="occultist">Occultist</option>
+            <option value="mesmerist">Mesmerist</option>
+            <option value="alchemist">Alchemist</option>
+            <option value="druid">Druid</option>
+            <option value="ranger">Ranger</option>
+            <option value="inquisitor">Inquisitor</option>
+            <option value="bard">Bard</option>
+        -->
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="spellbookGenerator/js/index.js"></script>
+</body>
+
+</html>
