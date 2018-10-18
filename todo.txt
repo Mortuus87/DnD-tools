@@ -1,0 +1,5 @@
+- Checkboxes for spell attributes, like spell school etc.
+- Spellbook quirks (description)
+  - Calculate number of pages, and find appropriate number of books based on the result
+- Protection with DC based on highest spell level
+- Secret pages?
