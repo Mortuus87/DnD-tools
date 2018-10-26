@@ -1,4 +1,10 @@
+// Make everything asynch? to test .then() etc.
+// Could make the action listener part smoother
 
+$(function () {
+    console.log("I ran!")
+    $("#nav-content").load("../layout/navbar.html");
+});
 // Global variables
 
 const allSpells = []; // Holds the full list of all spells.
@@ -44,7 +50,6 @@ function getValidSpells(type) {
             validSpells[spell.spell_level.match(regExpType)[1]].push(spell);
         }
     }
-    console.log("returning", validSpells)
     return validSpells;
 }
 
@@ -108,7 +113,7 @@ function printSpells() {
         if (spellbook[i].length != 0) {
             let html = `
             <p>
-            <strong>${plural(i)}level spells</strong><br>
+            <strong>${plural(i)} level spells</strong><br>
             `
             for (const spell of spellbook[i]) {
                 html += `${spell.name}<br>`
@@ -118,9 +123,6 @@ function printSpells() {
         }
     }
 }
-
-
-// Determine number of spells to be picked
 
 // Pick spells 
 

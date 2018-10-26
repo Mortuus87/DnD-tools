@@ -8,18 +8,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Generator</title>
-
 </head>
 
 <body>
-
-
-    <nav class="navbar navbar-expand-xs navbar-dark bg-dark text-light">
+    <nav class="navbar navbar-expand-xs navbar-dark bg-dark text-light px-0">
         <div class="container">
-            <div class="col">
-                <h5>Navbar headline</h5>
+            <div id="nav-content">
+                <h5>loading...</h5>
             </div>
         </div>
     </nav>
@@ -33,7 +30,6 @@
             <div class="col">
                 <div class="row">
                     <div class="col-lg-4 col-md-5">
-
                         <form>
                             <div class="row my-2">
                                 <div class="col">
@@ -41,11 +37,10 @@
                                     <select class="custom-select" id="class-type">
                                         <option value="sorcerer/wizard">Wizard</option>
                                         <option value="magus">Magus</option>
-                                        <option value="cleric/oracle">Cleric and Oracle</option>
+                                        <option value="bard">Bard</option>
                                     </select>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col">
                                     <label for="class-level">Level</label>
@@ -54,18 +49,16 @@
                                 </div>
                                 <div class="col">
                                     <label for="ability-mod">Ability modifier</label>
-                                    <input type="number" class="form-control" id="ability-mod" value="1" min="0"
+                                    <input type="number" class="form-control" id="ability-mod" value="3" min="0"
                                         required>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col mt-3">
                                     <button type="submit" class="btn btn-block btn-primary" id="generate-spells">Generate</button>
                                 </div>
                             </div>
                         </form>
-
                     </div>
                     <div class="col-lg-8 col-md-7">
                         <div id="output">Choose your charactristics, and press the button</div>
@@ -76,6 +69,7 @@
     </div>
 
     <!--
+
             <option value="cleric/oracle">Cleric and Oracle</option>
             <option value="paladin">Paladin</option> 
             <option value="summoner">Summoner</option>
@@ -91,7 +85,6 @@
             <option value="druid">Druid</option>
             <option value="ranger">Ranger</option>
             <option value="inquisitor">Inquisitor</option>
-            <option value="bard">Bard</option>
         -->
 
 
@@ -99,7 +92,7 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
-    <script src="index.js"></script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
