@@ -1,6 +1,5 @@
-
 {
-    "apperance":[
+    "apperance": [
         "Distinctive jewelry: earrings, necklace, circlet, bracelets",
         "Piercings",
         "Flamboyant or outlandish clothes",
@@ -22,9 +21,7 @@
         "Exceptionally beautiful",
         "Exceptionally ugly"
     ],
-
-    
-    "abilityHigh":[
+    "abilityHigh": [
         "Strength - powerful, brawny, strong as an ox",
         "Dexterity - lithe, agile, graceful",
         "Constitution - hardy, hale, healthy",
@@ -32,8 +29,7 @@
         "Wisdom - perceptive, spiritual, insightful",
         "Charisma - persuasive, forceful, born leader"
     ],
-
-    "abilityLow":[
+    "abilityLow": [
         "Strength - feeble, scrawny",
         "Dexterity - clumsy, fumbling",
         "Constitution - sickly, pale",
@@ -41,8 +37,7 @@
         "Wisdom - oblivious, absentminded",
         "Charisma - dull, boring"
     ],
-
-    "talent":[
+    "talent": [
         "Plays a musical instrument",
         "Speaks several languages fluently",
         "Unbelievably lucky",
@@ -62,10 +57,9 @@
         "Expert juggler",
         "Skilled actor and master of disguise",
         "Skilled dancer",
-        "Knows thieves' cant"
+        "Knows thieves' cant or other secret coded language"
     ],
-
-    "mannerism":[
+    "mannerism": [
         "Prone to singing, whistling, or humming quietly",
         "Speaks in rhyme or some other peculiar way",
         "Particularly low or high voice",
@@ -87,8 +81,7 @@
         "Bites fingernails",
         "Twirls hair or tugs beard"
     ],
-
-    "interactionTrait":[
+    "interactionTrait": [
         "Argumentative",
         "Arrogant",
         "Blustering",
@@ -102,9 +95,8 @@
         "Quiet",
         "Suspicious"
     ],
-
-    "ideal":{
-        "good":[
+    "ideal": {
+        "good": [
             "Beauty",
             "Charity",
             "Greater good",
@@ -112,7 +104,7 @@
             "Respect",
             "Self-sacrifice"
         ],
-        "lawful":[
+        "lawful": [
             "Community",
             "Fairness",
             "Honor",
@@ -120,7 +112,7 @@
             "Responsibility",
             "Tradition"
         ],
-        "neutral":[
+        "neutral": [
             "Balance",
             "Knowledge",
             "Live and let live",
@@ -128,7 +120,7 @@
             "Neutrality",
             "People"
         ],
-        "evil":[
+        "evil": [
             "Dominion",
             "Greed",
             "Might",
@@ -136,7 +128,7 @@
             "Retribution",
             "Slaughter"
         ],
-        "chaotic":[
+        "chaotic": [
             "Change",
             "Creativity",
             "Freedom",
@@ -144,7 +136,7 @@
             "No limits",
             "Whimsy"
         ],
-        "other":[
+        "other": [
             "Aspiration",
             "Discovery",
             "Glory",
@@ -153,8 +145,7 @@
             "Self-knowledge"
         ]
     },
-
-    "bond":[
+    "bond": [
         "Dedicated to fulfilling a personal life goal",
         "Protective of close family members",
         "Protective of colleagues or compatriots",
@@ -165,8 +156,7 @@
         "Protective of a valuable possession",
         "Out for revenge"
     ],
-
-    "secret":[
+    "secret": [
         "Forbidden love or susceptibility to romance",
         "Enjoys decadent pleasures",
         "Arrogance",
@@ -181,4 +171,3 @@
         "Foolhardy bravery"
     ]
 }
-
