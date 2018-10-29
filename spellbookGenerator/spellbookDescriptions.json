@@ -12,6 +12,12 @@
         ],
         "high": [
             "[PH] high level tome"
+        ],
+        "color": [
+            "blue",
+            "black",
+            "red",
+            "grey"
         ]
     }
 }

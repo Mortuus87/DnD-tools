@@ -7,3 +7,19 @@ body {
     padding: 0;
     box-sizing: border-box
 }
+
+.spell {
+    display: inline-block;
+    width: 100%
+}
+.spell:hover {
+    background: #f0f0f0;
+    box-shadow: 0 4px 8px 0 #f0f0f0, 0 6px 20px 0 #f0f0f0;
+}
+.button-group {
+    float: right;
+}
+
+.spell-entry {
+    float: left;
+}

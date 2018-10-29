@@ -1,16 +1,16 @@
 // Make everything asynch? to test .then() etc.
 // Could make the action listener part smoother
 
-$(function () {
-    console.log("I ran!")
-    $("#nav-content").load("../layout/navbar.html");
-});
 // Global variables
-
 const allSpells = []; // Holds the full list of all spells.
 let validSpells; // Holds valdid spells for a given class. Generated with the button.
 let spellsKnown = []; // Number of each spell level the chosen class has.
 let spellbook;
+
+$(function () {
+    console.log("I ran!")
+    $("#nav-content").load("../layout/navbar.html");
+});
 
 //import the json-file, and copies it into allSpells[]
 $.getJSON("PathfinderSpells.json", function (data) {
@@ -33,7 +33,7 @@ $("#generate-spells").click(function (e) {
     console.log("valid spells", validSpells)
     // end
 
-    spellbook = fillSpellbook();
+    spellbook = fillSpellbook(spellbook);
     console.log("spellbook", spellbook)
     printSpells();
 });
@@ -63,6 +63,9 @@ function generateSpellSlots(type, level) {
         case "magus":
             classSpellSlots(6, 1 / 3)
             break;
+        case "bard":
+            classSpellSlots(6, 1 / 3)
+            break;
         case "cleric/oracle":
             classSpellSlots(9, .5)
         default:
@@ -76,7 +79,7 @@ function generateSpellSlots(type, level) {
 
             // use validSpells.length to fill with zeros?
             (currentHighestSpellLevel > highestSpellLevel) ? currentHighestSpellLevel = highestSpellLevel : null;
-            isNaN(spellsKnown[currentHighestSpellLevel]) ? spellsKnown[currentHighestSpellLevel] = 0 : null;
+            !spellsKnown[currentHighestSpellLevel] ? spellsKnown[currentHighestSpellLevel] = 0 : null;
             // end of proposed change    
 
             spellsKnown[currentHighestSpellLevel] += 2;
@@ -85,7 +88,7 @@ function generateSpellSlots(type, level) {
 
 }
 
-function fillSpellbook() {
+function fillSpellbook(spellbook) {
     spellbook = empty1x10Array();
     for (let i = 0; i < spellsKnown.length; i++) {
         // 0 in 0th slot = all cantrips?
@@ -109,6 +112,8 @@ function plural(number) {
 
 function printSpells() {
     $("#output").empty();
+
+
     for (let i = 0; i < spellbook.length; i++) {
         if (spellbook[i].length != 0) {
             let html = `
@@ -116,7 +121,10 @@ function printSpells() {
             <strong>${plural(i)} level spells</strong><br>
             `
             for (const spell of spellbook[i]) {
-                html += `${spell.name}<br>`
+                html += `
+                <div class="spell">
+                    <div class="spell-entry">${spell.name}</div><div class="button-group">buttons</div>
+                </div>`
             }
             html += `</p>`;
             $("#output").append(html);
