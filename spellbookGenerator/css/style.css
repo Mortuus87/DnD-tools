@@ -8,18 +8,19 @@ body {
     box-sizing: border-box
 }
 
-.spell {
-    display: inline-block;
-    width: 100%
-}
-.spell:hover {
-    background: #f0f0f0;
-    box-shadow: 0 4px 8px 0 #f0f0f0, 0 6px 20px 0 #f0f0f0;
-}
-.button-group {
-    float: right;
+.full-width {
+    width: 100%;
 }
 
-.spell-entry {
-    float: left;
+.unstyled-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+.unstyled-button:hover {
+    text-decoration: underline;
+}
+
+.button-group {
+    flex-shrink: 0;
 }

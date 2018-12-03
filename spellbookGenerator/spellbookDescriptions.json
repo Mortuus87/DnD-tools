@@ -1,17 +1,17 @@
 {
     "level": {
         "low": [
-            "unassuming mundane book",
-            "collection of papers in a portfolio rather than a bound book",
-            "spine broken, with loose pages poking out from a flimsy cooking cover",
-            "small clasped book"
+            "an unassuming mundane book",
+            "a collection of papers in a portfolio rather than a bound book",
+            "has a broken spine, with loose pages poking out from a flimsy cooking cover",
+            "small ornate clasped book"
         ],
         "medium": [
             "leatherbound book with a locked cover",
             "sturdy"
         ],
         "high": [
-            "[PH] high level tome"
+            "Golden detailes, sturdy cover, advanced lock"
         ],
         "color": [
             "blue",

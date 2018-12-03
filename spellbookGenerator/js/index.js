@@ -1,5 +1,16 @@
-// Make everything asynch? to test .then() etc.
-// Could make the action listener part smoother
+
+// TODO
+// Implement new template for showing spells
+// Render each spell level seperatly. A function with 0-9 as parameter that renders that level
+// Add spell to given spell level in book, then rerender that div.
+// !!! Check for empty array before attemting to draw new spell
+// Reroll entire spell level
+// Output spell details in description
+// "Redraw". Remove spell from spellbook, and put it back into eligable spells array. Then call the "add spell" function"
+// "Discard" remove spell from spell book without putting it back into eligable spells array, then
+
+// Redo the parameters. Better use of flex to prevent popping.
+// Think about the filter for spell schools, and read specialist rules.
 
 // Global variables
 const allSpells = []; // Holds the full list of all spells.
@@ -7,10 +18,10 @@ let validSpells; // Holds valdid spells for a given class. Generated with the bu
 let spellsKnown = []; // Number of each spell level the chosen class has.
 let spellbook;
 
-$(function () {
+/* $(function () {
     console.log("I ran!")
     $("#nav-content").load("../layout/navbar.html");
-});
+}); */
 
 //import the json-file, and copies it into allSpells[]
 $.getJSON("PathfinderSpells.json", function (data) {
@@ -123,7 +134,7 @@ function printSpells() {
             for (const spell of spellbook[i]) {
                 html += `
                 <div class="spell">
-                    <div class="spell-entry">${spell.name}</div><div class="button-group">buttons</div>
+                    <div class="spell-entry">${spell.name}</div>
                 </div>`
             }
             html += `</p>`;
