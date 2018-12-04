@@ -1,7 +1,7 @@
 
 // TODO
-// Implement new template for showing spells
 // Render each spell level seperatly. A function with 0-9 as parameter that renders that level
+
 // Add spell to given spell level in book, then rerender that div.
 // !!! Check for empty array before attemting to draw new spell
 // Reroll entire spell level
@@ -41,11 +41,12 @@ $("#generate-spells").click(function (e) {
 
     // following could be an onChange-event on drop down menu
     validSpells = getValidSpells(type);
-    console.log("valid spells", validSpells)
+/*     console.log("valid spells", validSpells) */
     // end
 
     spellbook = fillSpellbook(spellbook);
-    console.log("spellbook", spellbook)
+/*     console.log("spellbook", spellbook)
+    console.log("valid spells", validSpells) */
     printSpells();
 });
 
@@ -99,14 +100,18 @@ function generateSpellSlots(type, level) {
 
 }
 
+function getOneSpell(spellbook, i) {
+    let r = Math.floor((Math.random() * validSpells[i].length));
+    spellbook[i].push(validSpells[i][r]);
+    validSpells[i].splice(r, 1);
+}
+
 function fillSpellbook(spellbook) {
     spellbook = empty1x10Array();
     for (let i = 0; i < spellsKnown.length; i++) {
         // 0 in 0th slot = all cantrips?
         for (let j = 0; j < spellsKnown[i]; j++) {
-            let r = Math.floor((Math.random() * validSpells[i].length));
-            spellbook[i].push(validSpells[i][r])
-            validSpells[i].splice(r, 1)
+            getOneSpell(spellbook, i);
         }
     }
     return spellbook;
@@ -123,25 +128,99 @@ function plural(number) {
 
 function printSpells() {
     $("#output").empty();
-
-
     for (let i = 0; i < spellbook.length; i++) {
         if (spellbook[i].length != 0) {
             let html = `
             <p>
-            <strong>${plural(i)} level spells</strong><br>
-            `
-            for (const spell of spellbook[i]) {
-                html += `
-                <div class="spell">
-                    <div class="spell-entry">${spell.name}</div>
-                </div>`
-            }
-            html += `</p>`;
+            <div class="d-inline-flex align-items-center justify-content-between full-width mt-3">
+                <div><h5 class="m-0"><b>${plural(i)} level</b></h5></div>
+                <div class="no-flex-shrink">
+                    <button id="add-spell-${i}" class="unstyled-button"><i class="fas fa-plus-circle"></i> Add</button>
+                    <button class="unstyled-button ml-auto"><i class="fas fa-redo-alt" alt="reroll spell"></i> Reroll</button>
+                </div>
+            </div>
+            `;
+            html += printAllSpellsOfLevel(i);
+            html += `
+            </p>
+            `;
             $("#output").append(html);
+            
         }
+        $("#add-spell-"+i).click(function (e) {
+            e.preventDefault();
+            getOneSpell(spellbook, i);
+            printSpells();
+            /* console.log("adding a spell of level", i);
+            console.log("spellbook",spellbook)
+            console.log("validSpells",validSpells) */
+            // move spell from valid spells to current spells
+            // (Seems OK) ensure that valid spells consists of remaining spells not currently in the spellbook.
+        });
     }
+    
 }
+
+function printAllSpellsOfLevel(i) {
+    let html = '';
+    for (let j = 0; j < spellbook[i].length; j++) {
+        // Destructure current spell
+        [ spell ] = [spellbook[i][j]];
+        html += `
+        <div class="card mb-1">
+            <div class="card-header d-inline-flex p-1 justify-content-between align-items-center">
+                <div class="spell-name"><h5 class="m-0">${spell.name}</h5><h6>(${spell.school})</h6></div>
+                <div class="no-flex-shrink">
+                    <button class="unstyled-button" data-toggle="collapse" data-target="#spell-${i}-${j}"><i class="fas fa-info-circle"></i><br>Info</button>
+                    <button class="unstyled-button" id="redraw-${i}-${j}"><i class="fas fa-redo-alt"></i><br>Redraw</button>
+                    <button class="unstyled-button" id="discard-${i}-${j}"><i class="fas fa-times-circle"></i><br>Discard</button>
+                </div>
+            </div>
+            <div id="spell-${i}-${j}" class="collapse">
+                <div class="card-body p-1">
+                    <div class="spell-description">
+                        <b>Level: </b> 
+                        ${spell.spell_level}
+                        <br>
+                        <b>Saveing Throw: </b> 
+                        ${spell.saving_throw}
+                        <br>
+                        <b>Casting Time: </b> 
+                        ${spell.casting_time}
+                        <br>
+                        <b>Targets: </b> 
+                        ${spell.targets}
+                        <br>
+                        <b>Duration: </b> 
+                        ${spell.duration}
+                        <br>
+                        <b>Range: </b> 
+                        ${spell.range}
+                        <br>
+                        <b>School: </b> 
+                        ${spell.school}
+                        <br>
+                        <b>Components:</b> 
+                        ${spell.components}
+                        <br>
+                        <b>Description:</b> 
+                        ${spell.description}
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        // action listeners in each spell
+        $(`#redraw-${i}-${j}`).click(function (e) {
+            e.preventDefault();
+            console.log("reroll pressed for",i+"-"+j);
+        });
+    }
+    return html;
+}
+
+
 
 // Pick spells 
 

@@ -21,6 +21,6 @@ body {
     text-decoration: underline;
 }
 
-.button-group {
+.no-flex-shrink {
     flex-shrink: 0;
 }
