@@ -158,6 +158,23 @@ function printSpells() {
             // (Seems OK) ensure that valid spells consists of remaining spells not currently in the spellbook.
         });
     }
+
+    // seperate loop adding action listeners to buttons on each spell
+    // make sure the listeners are not duplicated if additional spells are added
+    // do i have to clear actionlisteners and reapply, or can i check if there are any already present?
+    // will clearing the div get rid of the action listeners?
+    
+    for (let i = 0; i < spellbook[i].length; i++) {
+        // Move spell level action listeners here
+        // e.g. (#add-spell-${i})
+        console.log(`adding listener to #add-spell-${i}`);
+        for (let j = 0; j < spellbook[i][j].length; j++) {
+            // Make action listener for spell spesific buttons.
+            // e.g. (#spell-${i}-${j})
+            console.log(`adding listener to #spell-${i}-${j}`);
+        }
+        
+    }
     
 }
 
