@@ -8,6 +8,10 @@ body {
     box-sizing: border-box
 }
 
+#main-wrapper {
+    padding: 0;
+}
+
 .full-width {
     width: 100%;
 }
@@ -24,3 +28,4 @@ body {
 .no-flex-shrink {
     flex-shrink: 0;
 }
+

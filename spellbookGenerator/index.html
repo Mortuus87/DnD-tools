@@ -30,7 +30,7 @@
         </div>
     </nav> -->
 
-    <div class="container">
+    <div id="main-wrapper" class="container">
         <div class="col">
             <h1>Generator</h1>
         </div>
@@ -39,38 +39,79 @@
             <div class="col">
                 <div class="row">
                     <div class="col-lg-4 col-md-5">
-                        <form>
-                            <div class="row my-2">
-                                <div class="col">
-                                    <label class="my-1 mr-2" for="class-type">Class</label>
+                        <div class="row my-2">
+                            <div class="col">
+                                <!-- <label class="my-1 mr-2" for="class-type">Class</label>
                                     <select class="custom-select" id="class-type">
                                         <option value="sorcerer/wizard">Wizard</option>
                                         <option value="magus">Magus</option>
                                         <option value="bard">Bard</option>
+                                        <option value="cleric/oracle">Cleric and Oracle</option>
+                                    </select> -->
+                                <div class="input-group">
+                                    <select class="custom-select" id="class-type">
+                                        <option value="sorcerer/wizard">Wizard</option>
+                                        <option value="magus">Magus</option>
+                                        <option value="bard">Bard</option>
+                                        <option value="cleric/oracle">Cleric and Oracle</option>
                                     </select>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" id="generate-spells">Generate</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label for="class-level">Level</label>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Level</span>
+                                    </div>
                                     <input type="number" class="form-control" id="class-level" value="5" min="1"
                                         required>
                                 </div>
-                                <div class="col">
-                                    <label for="ability-mod">Ability modifier</label>
+                            </div>
+                            <div class="col">
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">Mod</span>
+                                    </div>
                                     <input type="number" class="form-control" id="ability-mod" value="3" min="0"
                                         required>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col mt-3">
-                                    <button type="submit" class="btn btn-block btn-primary" id="generate-spells">Generate</button>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="expanded-spell-adding" value="option1">
+                                    <label class="form-check-label" for="inlineCheckbox1">Advanced spell picking</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="simple-presentation" value="option2">
+                                    <label class="form-check-label" for="inlineCheckbox2">Simple presentation</label>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+
+                        <div class="row">
+                            <div id="spellbook-information" class="">
+
+                            </div>
+                        </div>
                     </div>
+
                     <div class="col-lg-8 col-md-7">
-                        <div id="output">Choose your charactristics, and press the button</div>
+                        <div id="output">
+                            <p>
+                                Current issues:<br>
+                                Spells one above the level of a currently known spell may be added, but if you end up
+                                deleting all your 1st level spells or your entire spellbook, you will have to
+                                regenerate everything.
+                                This may be circumvented by checking the "show all levels" option i have implemented
+                                (or plan to, anyways).
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
