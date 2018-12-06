@@ -100,18 +100,11 @@ function generateSpellSlots(type, level) {
 
 }
 
-function getOneSpell(spellbook, i) {
-    let r = Math.floor((Math.random() * validSpells[i].length));
-    spellbook[i].push(validSpells[i][r]);
-    validSpells[i].splice(r, 1);
-}
-
 function fillSpellbook(spellbook) {
     spellbook = empty1x10Array();
     for (let i = 0; i < spellsKnown.length; i++) {
-        // 0 in 0th slot = all cantrips?
         for (let j = 0; j < spellsKnown[i]; j++) {
-            getOneSpell(spellbook, i);
+            addSpell(spellbook, i);
         }
     }
     return spellbook;
@@ -126,6 +119,17 @@ function plural(number) {
     }
 }
 
+function addSpell(spellbook, i) {
+    let r = Math.floor((Math.random() * validSpells[i].length));
+    spellbook[i].push(validSpells[i][r]);
+    validSpells[i].splice(r, 1);
+}
+
+function removeSpell(spellbook, i, j) {
+    validSpells[i].push(spellbook[i][j])
+    spellbook[i].splice(j,1);
+}
+
 function printSpells() {
     $("#output").empty();
     for (let i = 0; i < spellbook.length; i++) {
@@ -136,7 +140,7 @@ function printSpells() {
                 <div><h5 class="m-0"><b>${plural(i)} level</b></h5></div>
                 <div class="no-flex-shrink">
                     <button id="add-spell-${i}" class="unstyled-button"><i class="fas fa-plus-circle"></i> Add</button>
-                    <button class="unstyled-button ml-auto"><i class="fas fa-redo-alt" alt="reroll spell"></i> Reroll</button>
+                    <button id="reroll-${i}"class="unstyled-button ml-auto"><i class="fas fa-redo-alt" alt="reroll spell"></i> Reroll</button>
                 </div>
             </div>
             `;
@@ -145,37 +149,47 @@ function printSpells() {
             </p>
             `;
             $("#output").append(html);
-            
+
+            for (let j = 0; j < spellbook[i].length; j++) {
+                $(`#redraw-${i}-${j}`).click(function (e) {
+                    let spellLevel  = $(this).attr("data-level");
+                    let spellIndex  = $(this).attr("data-index");
+                    e.preventDefault();
+                    removeSpell(spellbook, spellLevel, spellIndex);
+                    addSpell(spellbook, spellLevel);
+                    printSpells();
+                });
+
+                $(`#discard-${i}-${j}`).click(function (e) {
+                    let spellLevel  = $(this).attr("data-level");
+                    let spellIndex  = $(this).attr("data-index");
+                    e.preventDefault();
+                    removeSpell(spellbook, spellLevel, spellIndex);
+                    printSpells();
+                });
+            }
         }
+
+        //Event listeners
         $("#add-spell-"+i).click(function (e) {
             e.preventDefault();
-            getOneSpell(spellbook, i);
+            addSpell(spellbook, i);
             printSpells();
-            /* console.log("adding a spell of level", i);
-            console.log("spellbook",spellbook)
-            console.log("validSpells",validSpells) */
-            // move spell from valid spells to current spells
-            // (Seems OK) ensure that valid spells consists of remaining spells not currently in the spellbook.
+        });
+
+        $("#reroll-"+i).click(function (e){
+            e.preventDefault();
+            let spellsToRemove = spellbook[i].length;
+            for (let j = 0; j < spellsToRemove; j++) {
+                removeSpell(spellbook, i, 0);
+                addSpell(spellbook, i);
+            }
+            printSpells();
         });
     }
-
-    // seperate loop adding action listeners to buttons on each spell
-    // make sure the listeners are not duplicated if additional spells are added
-    // do i have to clear actionlisteners and reapply, or can i check if there are any already present?
-    // will clearing the div get rid of the action listeners?
-    
-    for (let i = 0; i < spellbook[i].length; i++) {
-        // Move spell level action listeners here
-        // e.g. (#add-spell-${i})
-        console.log(`adding listener to #add-spell-${i}`);
-        for (let j = 0; j < spellbook[i][j].length; j++) {
-            // Make action listener for spell spesific buttons.
-            // e.g. (#spell-${i}-${j})
-            console.log(`adding listener to #spell-${i}-${j}`);
-        }
-        
-    }
-    
+    // console.log(validSpells);
+    // console.log(spellbook);
+       
 }
 
 function printAllSpellsOfLevel(i) {
@@ -189,8 +203,8 @@ function printAllSpellsOfLevel(i) {
                 <div class="spell-name"><h5 class="m-0">${spell.name}</h5><h6>(${spell.school})</h6></div>
                 <div class="no-flex-shrink">
                     <button class="unstyled-button" data-toggle="collapse" data-target="#spell-${i}-${j}"><i class="fas fa-info-circle"></i><br>Info</button>
-                    <button class="unstyled-button" id="redraw-${i}-${j}"><i class="fas fa-redo-alt"></i><br>Redraw</button>
-                    <button class="unstyled-button" id="discard-${i}-${j}"><i class="fas fa-times-circle"></i><br>Discard</button>
+                    <button class="unstyled-button" id="redraw-${i}-${j}" data-level="${i}" data-index="${j}"><i class="fas fa-redo-alt"></i><br>Redraw</button>
+                    <button class="unstyled-button" id="discard-${i}-${j}" data-level="${i}" data-index="${j}"><i class="fas fa-times-circle"></i><br>Discard</button>
                 </div>
             </div>
             <div id="spell-${i}-${j}" class="collapse">
@@ -228,11 +242,6 @@ function printAllSpellsOfLevel(i) {
             </div>
         </div>
         `;
-        // action listeners in each spell
-        $(`#redraw-${i}-${j}`).click(function (e) {
-            e.preventDefault();
-            console.log("reroll pressed for",i+"-"+j);
-        });
     }
     return html;
 }
