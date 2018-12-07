@@ -125,6 +125,18 @@ function addSpell(spellbook, i) {
     }
 }
 
+function replaceSpell(spellbook, i, j) {
+    
+    validSpells[i].push(spellbook[i][j])
+    
+    let r = Math.floor((Math.random() * validSpells[i].length));
+    spellbook[i][j] = validSpells[i][r];
+    validSpells[i].splice(r, 1);
+
+    // draw random valid spell and put it into i j
+    
+}
+
 function removeSpell(spellbook, i, j) {
     validSpells[i].push(spellbook[i][j])
     spellbook[i].splice(j, 1);
@@ -146,7 +158,6 @@ function printSpells() {
     // Simple presentation
     if ($('#simple-presentation')[0].checked) {
         for (let i = 0; i < spellbook.length; i++) {
-            
             if (spellbook[i].length != 0) {
                 $("#output").append(plural(i)+'<br>');
                 for (const spell of spellbook[i]) {
@@ -169,8 +180,7 @@ function printSpells() {
                 for (let j = 0; j < spellbook[i].length; j++) {
                     $(`#redraw-${i}-${j}`).click(function (e) {
                         e.preventDefault();
-                        removeSpell(spellbook, $(this).attr("data-level"), $(this).attr("data-index"));
-                        addSpell(spellbook, $(this).attr("data-level"));
+                        replaceSpell(spellbook, $(this).attr("data-level"), $(this).attr("data-index"))
                         printSpells();
                     });
                     $(`#discard-${i}-${j}`).click(function (e) {
@@ -182,12 +192,12 @@ function printSpells() {
             }
 
             //Event listeners
-            $(".add-spell-" + i).click(function (e) {
+            $(`.add-spell-${i}`).click(function (e) {
                 e.preventDefault();
                 addSpell(spellbook, i);
                 printSpells();
             });
-            $("#reroll-" + i).click(function (e) {
+            $(`#reroll-${i}`).click(function (e) {
                 e.preventDefault();
                 let spellsToRemove = spellbook[i].length;
                 for (let j = 0; j < spellsToRemove; j++) {
@@ -196,16 +206,63 @@ function printSpells() {
                 }
                 printSpells();
             });
+            $(`.fill-${i}`).click(function (e) {
+                e.preventDefault();
+                
+                while (validSpells[i].length > 0) {
+                    addSpell(spellbook, i);
+                }
+                printSpells();
+            });
+            $(`.empty-${i}`).click(function (e) {
+                e.preventDefault();
+                
+                while (spellbook[i].length > 0) {
+                    removeSpell(spellbook, i, 0);
+                }
+                printSpells();
+            });
         }
     }
+    // Loop-independent printing
+    printSpellbookDescription(spellbook);
 }
-
-function getColorClass(i) {
-    let color = "";
-    if ((spellbook[i].length == 0)) {
-        color = "text-secondary";
+function printSpellbookDescription() {
+    let description = [];
+    let size = getBookSize();
+    let highestSpellLevel = 0;
+    for (let i = 0; i < spellbook.length; i++) {
+        if (spellsKnown[i]) {
+            highestSpellLevel++;
+        }
     }
-    return color;
+    console.log(highestSpellLevel);
+
+    $.getJSON("spellbookDescription.json", function (data) {
+        $.each(data, function (key, val) {
+            description[key] = val;
+        });
+    });
+
+    console.log(description);
+
+    // switch for cases based on book size
+    // 
+
+    html = `
+    <div class="card border-light mb-1">
+        <div class="card-body d-inline-flex p-1 bg-white">
+            <div class="no-flex-shrink m-auto">
+                <p class="m-0">
+                    The spells take up ${size} pages.<br>
+                    
+                </p>
+            </div>
+        </div>
+    </div>
+    `;
+    $("#spellbook-information").empty();
+    $("#spellbook-information").append(html);
 }
 
 function addSpellButton(i) {
@@ -213,7 +270,7 @@ function addSpellButton(i) {
         <div class="card border-light mb-1">
             <div class="card-body d-inline-flex p-1 bg-white">
                 <div class="no-flex-shrink m-auto">
-                    <button class="unstyled-button add-spell-${i} ${getColorClass(i)}"> <i class="fas fa-plus-circle"></i> Add </button>
+                    <button class="unstyled-button add-spell-${i}"> <i class="fas fa-plus-circle"></i> Add </button>
                 </div>
             </div>
         </div>
@@ -223,14 +280,16 @@ function addSpellButton(i) {
 
 function printSpellLevelHeader(i) {
     let html = `
-    <div class="d-inline-flex align-items-center justify-content-between full-width mt-3 ${getColorClass(i)}">
+    <div class="d-inline-flex align-items-center justify-content-between full-width mt-3">
         <div>
             <h5 class="m-0">
                 <b>${plural(i)} level</b>
             </h5>
         </div>
         <div class="no-flex-shrink">
-            <button id="reroll-${i}"class="unstyled-button ml-auto ${getColorClass(i)}"> <i class="fas fa-redo-alt" alt="reroll spell"></i> Reroll </button>
+        ${ (i==0) ? '<button class="unstyled-button ml-auto fill-'+i+'"> <i class="fas fa-plus-circle"></i> Add All</button>'
+        +'<button class="unstyled-button ml-auto empty-'+i+'"> <i class="fas fa-minus-circle"></i> Remove All</button>' :""}
+            <button id="reroll-${i}"class="unstyled-button ml-auto"> <i class="fas fa-redo-alt"></i> Reroll All</button>
         </div>
     </div>`;
     return html;

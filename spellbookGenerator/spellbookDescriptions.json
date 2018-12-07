@@ -19,5 +19,10 @@
             "red",
             "grey"
         ]
+    },
+    "generalDescription": {
+        "low": [
+            "dirty or damaged"
+        ]
     }
 }
