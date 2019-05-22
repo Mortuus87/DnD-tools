@@ -5,13 +5,24 @@ let traitRefs;
 init();
 
 function init() {
-  $.getJSON("../json/npcTables.json", data => {
+  $.getJSON("json/npcTables.json", data => {
     traits = data;
     generateTraits();
   });
 
+  /* $.ajax({
+  url: "json/npcTables.json",
+  dataType: 'json',
+  success: function (data) {
+      traits = data;
+      generateTraits();
+  }
+  }); */
+
   $('#generate-traits').on('click', () => generateTraits());
 }
+
+
 
 function getHighIndex() {
   let highest = [];
