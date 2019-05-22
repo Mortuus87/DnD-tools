@@ -5,7 +5,7 @@ let traitRefs;
 init();
 
 function init() {
-  $.getJSON("json/npcTables.json", data => {
+  $.getJSON("../json/npcTables.json", data => {
     traits = data;
     generateTraits();
   });
@@ -100,23 +100,27 @@ function generateTraits() {
   <strong>Talent: </strong>${traits.talent[traitRefs.talent]}<br>
   <strong>Mannerism: </strong>${traits.mannerism[traitRefs.mannerism]}<br>
   <strong>Interaction trait: </strong>${traits.interactionTrait[traitRefs.interactionTrait]}<br>
-  ${printAlignment(traitRefs.alignment[0], traitRefs.alignment[1][0], traitRefs.alignment[1][1])}<br>
-  <strong>Bond: </strong>${traitRefs.bond}<br>
+  ${printIdeal(traitRefs.alignment[0], traitRefs.alignment[1][0], traitRefs.alignment[1][1])}<br>
+  <strong>Bond: </strong>${traits.bond[traitRefs.bond.bonds[0]]}<br>
+  ${traitRefs.bond.extra ? "<strong>Extra bond: </strong>" + traits.bond[traitRefs.bond.bonds[1]]+"<br>" : ''}
   <strong>Flaw or secret: </strong>${traits.secret[traitRefs.secret]}<br>`;
   $('#traits .output').html(html);
-  console.log(traitRefs);
 
-  function determineBond() {
-    let r1 = random(traits.bond.length + 1); // check for additional bond
+  function determineBond(traits) {
+    let r1 = random(traits.bond.length * 1.2)
+    r1 > (traits.bond.length) ? r1 = true : r1 = false;
     let r2 = random(traits.bond.length); // first bond
     let r3 = random(traits.bond.length); // additional bond
     while (r3 == r2) {
-      r2 = random(traits.bond.length - 1)
+      r2 = random(traits.bond.length)
     };
-    return (r1 < traits.bond.length) ? traits.bond[r2] : `${traits.bond[r2]}<br><strong>Additional bond: </strong>${traits.bond[r3]}`;
-  };
+    return {
+      "extra": r1,
+      "bonds": [r2, r3]
+    };
+  }
 
-  function printAlignment(alignment, firstIdeal, secondIdeal) {
+  function printIdeal(alignment, firstIdeal, secondIdeal) {
     switch (alignment) {
       case 0:
         return `<strong>Lawful good: </strong>${traits.ideal.lawful[firstIdeal]} and ${traits.ideal.good[secondIdeal]}`;

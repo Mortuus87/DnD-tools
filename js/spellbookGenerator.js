@@ -8,7 +8,7 @@ let spellbook;
 init();
 
 function init() {
-  $.getJSON("/tools/json/PathfinderSpells.json", function (data) {
+  $.getJSON("../json/PathfinderSpells.json", function (data) {
     $.each(data.pfSpells, (key, val) => allSpells[key] = val);
     // generateSpells();
   })
