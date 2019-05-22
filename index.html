@@ -2,105 +2,210 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Character Generator</title>
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
 
-    <title>Pen &amp; Paper Tools</title>
 </head>
 
-<style>
-    * {
-        font-family: 'Lato', sans-serif;
-    }
-</style>
-
 <body class="bg-light">
-    <div class="container">
-        <div class="landing">
-            <div class="text-center">
-                <h1>Pen &amp; Paper Tools</h1>
-            </div>
 
-            <div class="bg-light p-2">
-                <p> Welcome to this site. It contains several useful tools for anyone running tabletop roleplaying
-                    games, like Dungeons &amp; Dragons, or Pathfinder, with more to come in the future.</p>
-            </div>
-
-            <div>
-                Features to be implemented:
-                <ul>
-                    <li>City/Town stat gen. Click <a href="settlementGen/settlement.html">here</a> for a peak at
-                        the
-                        WIP</li>
-                    <li>DC table</li>
-                    <li>Dice roller?</li>
-                    <li>All-in-one generator. NPCs with ability scores, character traits, and any other related stats</li>
-                </ul>
-
-                Features thast may be implemented if server side support is added:
-                <ul>
-                    <li>NPC database. Save a stat block</li>
-                    <li>NPC generation using abilities and trait generator</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="row">
-            <!-- Headline for the cards -->
-            <div class="h2"></div>
-        </div>
-
-        <div class="row card-group text-center">
-            <div class="col-xs-12 col-md-4 card px-0">
-                <img class="card-img-top" src="" alt="">
-                <div class="card-text h5 strong">Spellbook Generator</div>
-                <div class="card-body p-1">
-                    <p class="m-0">A generator for wizard/magus spellbooks. Other caster spell lists are available, but
-                        may not work properly. Besides, you should plan out a sorcerer better than with a generator!</p>
-                </div>
-                <div class="card-footer">
-                    <a class="card-link" href="spellbookGenerator/index.html">Spellbook generator</a>
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-md-4 card px-0">
-                <img class="card-img-top" src="" alt="">
-                <div class="card-text h5 strong">Ability Score Calculator</div>
-                <div class="card-body p-1">
-                    <p class="m-0">An ability score calculator with cost calculation for point buy, and generators with
-                        different parameters</p>
-                </div>
-                <div class="card-footer">
-                    <a class="card-link" href="abilityCalculator/ability.html">Ability score
-                        calculator</a>
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-md-4 card px-0">
-                <img class="card-img-top" src="" alt="">
-                <div class="card-text h5 strong">Character Trait Generator</div>
-                <div class="card-body p-1">
-                    <p class="m-0">A generator using the tables form the D&amp;D 5th edition DMG to generate NPC
-                        character traits</p>
-                </div>
-                <div class="card-footer">
-                    <a class="card-link" href="charGen/characterTrait.html">Character trait
-                        generator</a>
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-
+  <main class="container">
+    <div class="row">
+      <div class="col">
+        <h1>Character generator</h1>
+      </div>
+      <section id="global options">
+        <input type="checkbox" title="This does nothing" name="dummy" id="dummy">
+      </section>
     </div>
+
+    <!-- first row -->
+    <div class="row">
+
+      <!-- ability score -->
+      <div class="col-lg-6">
+        <section id="abilities">
+
+          <h2>Ability Score</h2>
+          <div class="card">
+            <div class="card-body">
+
+              <div class="row">
+                <div class="col">
+                  <select id="point-amount-select" class="w-100 custom-select">
+                    <option value="15">Standard Fantasy (15 points)</option>
+                    <option value="10">Low-powered Fantasy (10 points)</option>
+                    <option value="20">High Fantasy (20 points)</option>
+                    <option value="25">Epic Fantasy (25 points)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row my-2">
+                <div class="col">
+                  <button type="button" class="btn btn-block btn-primary btn-sm" id="generate-ability-array">Generate abilities and traits</button>
+                  <button type="button" class="btn btn-block btn-primary btn-sm" id="dice-generate">Roll 4d6, keep
+                    highest 3</button>
+                  <button type="button" class="btn btn-block btn-primary btn-sm" id="reset-7">Reset</button>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col">
+
+                  <div class="d-flex flex-nowrap">
+
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Available</div>
+                      </div>
+                      <input type="text" id="ability-points-available" class="input-sm form-control" value="15">
+                    </div>
+
+                    <div class="px-1"></div>
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Used</div>
+                      </div>
+                      <input type="text" id="ability-points-used" class="input-sm form-control" readonly="readonly">
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col" id="ability-table">
+                  
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </section>
+      </div>
+
+      <!-- traits -->
+      <div class="col-lg-6">
+        <section id="traits">
+          <h2>
+            Character Traits
+          </h2>
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <button type="button" class="btn btn-block btn-primary btn-sm" id="generate-traits">Generate
+                    new traits</button>
+                  <div class="output mt-2">
+                    loading...
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      </section>
+    </div>
+
+    <!-- second row -->
+    <div class="row">
+
+      <!-- Constructed by js in the case of a caster -->
+      <div class="col">
+        <section id="spells">
+          <h2>
+            Spellbook
+          </h2>
+
+          <div class="card card-body">
+            <!-- start of card -->
+
+            <div class="row">
+              <div class="col-sm-5 col-xs-12 pr-sm-1 mb-2">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Level</span>
+                  </div>
+                  <input type="number" class="form-control" id="class-level" value="1" min="1" required>
+                </div>
+              </div>
+
+              <div class="col-sm-7 col-xs-12 pl-sm-1 mb-2">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Modifier</span>
+                  </div>
+                  <select class="input-group-item custom-select" id="ability-mod">
+                    <option value="int-mod">Intelligence</option>
+                    <option value="wis-mod">Wisdom</option>
+                    <option value="cha-mod">Charisma</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col mb-2">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Caster</span>
+                  </div>
+                  <select class="custom-select" id="class-type">
+                    <option value="sorcerer/wizard">Wizard</option>
+                    <option value="magus">Magus</option>
+                    <option value="bard">Bard</option>
+                    <option value="cleric/oracle">Cleric and Oracle</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-sm" type="button" id="generate-spells">Generate a spell list</button>
+
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="expanded-spell-adding" value="option1">
+              <label class="form-check-label" for="expanded-spell-adding">Advanced spell picking</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="simple-presentation" value="option2">
+              <label class="form-check-label" for="simple-presentation">Simple presentation</label>
+            </div>
+
+
+            <div class="output">
+              <p>Press the Generate button</p>
+            </div>
+
+            <!-- end of card -->
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="js/common.js"></script>
+  <script src="js/generateAbilityTable.js"></script>
+  <script src="js/abilityScoreGenerator.js"></script>
+  <script src="js/traitGenerator.js"></script>
+  <script src="js/spellbookGenerator.js"></script>
+
+
 </body>
 
 </html>

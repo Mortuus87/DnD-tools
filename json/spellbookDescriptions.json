@@ -11,18 +11,19 @@
             "sturdy"
         ],
         "high": [
-            "Golden detailes, sturdy cover, advanced lock"
+            "Golden details, sturdy cover, advanced lock"
+        ]
+        
+    },
+    "generalDescription": {
+        "low": [
+            "dirty or damaged"
         ],
         "color": [
             "blue",
             "black",
             "red",
             "grey"
-        ]
-    },
-    "generalDescription": {
-        "low": [
-            "dirty or damaged"
         ]
     }
 }

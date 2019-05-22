@@ -1,21 +1,12 @@
-* {
-    font-family: 'Lato', sans-serif;
+#abilities input, #abilities th {
+    text-align: center;
 }
-
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box
+.narrow-number-input {
+    width: 4em;
 }
-
-#main-wrapper {
-    padding: 0;
+.narrow-text-input {
+    width: 3em;
 }
-
-.full-width {
-    width: 100%;
-}
-
 .unstyled-button {
     border: none;
     background: transparent;
@@ -24,8 +15,6 @@ body {
 .unstyled-button:hover {
     text-decoration: underline;
 }
-
 .no-flex-shrink {
     flex-shrink: 0;
 }
-
