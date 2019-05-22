@@ -1,20 +1,6 @@
 let traits;
 const abilities = ["str", "dex", "con", "int", "wis", "cha"];
-
-class GeneratedTraits {
-  constructor(apperance, abilityHigh, abilityLow, talent, mannerism, interactionTrait, ideal, bond, secret) {
-    this.apperance = apperance;
-    this.abilityHigh = abilityHigh;
-    this.abilityLow = abilityLow;
-    this.talent = talent;
-    this.mannerism = mannerism;
-    this.interactionTrait = interactionTrait;
-    this.ideal = ideal;
-    this.bond = bond;
-    this.secret = secret;
-  }
-}
-let generatedTraits = new GeneratedTraits();
+let traitRefs;
 
 init();
 
@@ -86,25 +72,39 @@ function generateTraits() {
    * Seperate drawing from generating, and call them when needed.
    */
 
+  let alignment = random(9); // 9 is the number of alignments used
   let highAbility;
   let lowAbility;
   do {
     highAbility = getHighIndex();
     lowAbility = getLowIndex();
   } while (highAbility == lowAbility);
-  let alignment = random(9); // 9 is the number of alignments used
+
+  traitRefs = {
+    "strongAttribute": highAbility,
+    "weakAttribute": lowAbility,
+    "apperance": random(traits.apperance.length),
+    "talent": random(traits.talent.length),
+    "mannerism": random(traits.mannerism.length),
+    "interactionTrait": random(traits.interactionTrait.length),
+    "alignment": determineAlignment(traits, alignment),
+    "bond": determineBond(traits),
+    "secret": random(traits.secret.length)
+
+  }
 
   let html = `
-  <strong>Strong attribute: </strong>${traits.abilityHigh[highAbility]}<br>
-  <strong>Weak attribute: </strong>${traits.abilityLow[lowAbility]}<br>
-  <strong>Apperance: </strong>${traits.apperance[random(traits.apperance.length)]}<br>
-  <strong>Talent: </strong>${traits.talent[random(traits.talent.length)]}<br>
-  <strong>Mannerism: </strong>${traits.mannerism[random(traits.mannerism.length)]}<br>
-  <strong>Interaction trait: </strong>${traits.interactionTrait[random(traits.interactionTrait.length)]}<br>
-  ${determineAlignment(traits, alignment)}<br>
-  <strong>Bond: </strong>${determineBond(traits)}<br>
-  <strong>Flaw or secret: </strong>${traits.secret[random(traits.secret.length)]}<br>`;
+  <strong>Strong attribute: </strong>${traits.abilityHigh[traitRefs.strongAttribute]}<br>
+  <strong>Weak attribute: </strong>${traits.abilityLow[traitRefs.weakAttribute]}<br>
+  <strong>Apperance: </strong>${traits.apperance[traitRefs.apperance]}<br>
+  <strong>Talent: </strong>${traits.talent[traitRefs.talent]}<br>
+  <strong>Mannerism: </strong>${traits.mannerism[traitRefs.mannerism]}<br>
+  <strong>Interaction trait: </strong>${traits.interactionTrait[traitRefs.interactionTrait]}<br>
+  ${traitRefs.alignment}<br>
+  <strong>Bond: </strong>${traitRefs.bond}<br>
+  <strong>Flaw or secret: </strong>${traits.secret[traitRefs.secret]}<br>`;
   $('#traits .output').html(html);
+  console.log(traitRefs);
 
   function determineBond() {
     let r1 = random(traits.bond.length + 1);
