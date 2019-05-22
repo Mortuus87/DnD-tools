@@ -87,7 +87,7 @@ function generateTraits() {
     "talent": random(traits.talent.length),
     "mannerism": random(traits.mannerism.length),
     "interactionTrait": random(traits.interactionTrait.length),
-    "alignment": determineAlignment(traits, alignment),
+    "alignment": [random(9), determineIdeal(alignment)],
     "bond": determineBond(traits),
     "secret": random(traits.secret.length)
 
@@ -100,45 +100,70 @@ function generateTraits() {
   <strong>Talent: </strong>${traits.talent[traitRefs.talent]}<br>
   <strong>Mannerism: </strong>${traits.mannerism[traitRefs.mannerism]}<br>
   <strong>Interaction trait: </strong>${traits.interactionTrait[traitRefs.interactionTrait]}<br>
-  ${traitRefs.alignment}<br>
+  ${printAlignment(traitRefs.alignment[0], traitRefs.alignment[1][0], traitRefs.alignment[1][1])}<br>
   <strong>Bond: </strong>${traitRefs.bond}<br>
   <strong>Flaw or secret: </strong>${traits.secret[traitRefs.secret]}<br>`;
   $('#traits .output').html(html);
   console.log(traitRefs);
 
   function determineBond() {
-    let r1 = random(traits.bond.length + 1);
-    let r2 = random(traits.bond.length);
-    let r3 = random(traits.bond.length);
+    let r1 = random(traits.bond.length + 1); // check for additional bond
+    let r2 = random(traits.bond.length); // first bond
+    let r3 = random(traits.bond.length); // additional bond
     while (r3 == r2) {
       r2 = random(traits.bond.length - 1)
     };
     return (r1 < traits.bond.length) ? traits.bond[r2] : `${traits.bond[r2]}<br><strong>Additional bond: </strong>${traits.bond[r3]}`;
   };
 
-  function determineAlignment() {
+  function printAlignment(alignment, firstIdeal, secondIdeal) {
+    switch (alignment) {
+      case 0:
+        return `<strong>Lawful good: </strong>${traits.ideal.lawful[firstIdeal]} and ${traits.ideal.good[secondIdeal]}`;
+      case 1:
+        return `<strong>Neutral good: </strong>${traits.ideal.neutral[firstIdeal]} and ${traits.ideal.good[secondIdeal]}`;
+      case 2:
+        return `<strong>Chaotic good: </strong>${traits.ideal.chaotic[firstIdeal]} and ${traits.ideal.good[secondIdeal]}`;
+      case 3:
+        return `<strong>Lawful neutral: </strong>${traits.ideal.lawful[firstIdeal]} and ${traits.ideal.neutral[secondIdeal]}`;
+      case 4:
+        return `<strong>True neutral: </strong>${traits.ideal.neutral[firstIdeal]} and ${traits.ideal.other[secondIdeal]}`;
+      case 5:
+        return `<strong>Chaotic neutral: </strong>${traits.ideal.chaotic[firstIdeal]} and ${traits.ideal.neutral[secondIdeal]}`;
+      case 6:
+        return `<strong>Lawful evil: </strong>${traits.ideal.lawful[firstIdeal]} and ${traits.ideal.evil[secondIdeal]}`;
+      case 7:
+        return `<strong>Neutral evil: </strong>${traits.ideal.neutral[firstIdeal]} and ${traits.ideal.evil[secondIdeal]}`;
+      case 8:
+        return `<strong>Chaotic evil: </strong>${traits.ideal.chaotic[firstIdeal]} and ${traits.ideal.evil[secondIdeal]}`;
+      default:
+        return `Error in alignment ideal printer. Alignment out of bounds`;
+    }
+  }
+
+  function determineIdeal(alignment) {
     // the 9 is hardcoded based on number of possible alignments
     switch (alignment) {
       case 0:
-        return `<strong>Lawful good: </strong>${traits.ideal.lawful[random(traits.ideal.lawful.length)]} and ${traits.ideal.good[random(traits.ideal.good.length)]}`;
+        return [random(traits.ideal.lawful.length), random(traits.ideal.good.length)];
       case 1:
-        return `<strong>Neutral good: </strong>${traits.ideal.neutral[random(traits.ideal.neutral.length)]} and ${traits.ideal.good[random(traits.ideal.good.length)]}`;
+        return [random(traits.ideal.neutral.length), random(traits.ideal.good.length)];
       case 2:
-        return `<strong>Chaotic good: </strong>${traits.ideal.chaotic[random(traits.ideal.chaotic.length)]} and ${traits.ideal.good[random(traits.ideal.good.length)]}`;
+        return [random(traits.ideal.chaotic.length), random(traits.ideal.good.length)];
       case 3:
-        return `<strong>Lawful neutral: </strong>${traits.ideal.lawful[random(traits.ideal.lawful.length)]} and ${traits.ideal.neutral[random(traits.ideal.neutral.length)]}`;
+        return [random(traits.ideal.lawful.length), random(traits.ideal.neutral.length)];
       case 4:
-        return `<strong>True neutral: </strong>${traits.ideal.neutral[random(traits.ideal.neutral.length)]} and ${traits.ideal.other[random(traits.ideal.other.length)]}`;
+        return [random(traits.ideal.neutral.length), random(traits.ideal.other.length)];
       case 5:
-        return `<strong>Chaotic neutral: </strong>${traits.ideal.chaotic[random(traits.ideal.chaotic.length)]} and ${traits.ideal.neutral[random(traits.ideal.neutral.length)]}`;
+        return [random(traits.ideal.chaotic.length), random(traits.ideal.neutral.length)];
       case 6:
-        return `<strong>Lawful evil: </strong>${traits.ideal.lawful[random(traits.ideal.lawful.length)]} and ${traits.ideal.evil[random(traits.ideal.evil.length)]}`;
+        return [random(traits.ideal.lawful.length), random(traits.ideal.evil.length)];
       case 7:
-        return `<strong>Neutral evil: </strong>${traits.ideal.neutral[random(traits.ideal.neutral.length)]} and ${traits.ideal.evil[random(traits.ideal.evil.length)]}`;
+        return [random(traits.ideal.neutral.length), random(traits.ideal.evil.length)];
       case 8:
-        return `<strong>Chaotic evil: </strong>${traits.ideal.chaotic[random(traits.ideal.chaotic.length)]} and ${traits.ideal.evil[random(traits.ideal.evil.length)]}`;
+        return [random(traits.ideal.chaotic.length), random(traits.ideal.evil.length)];
       default:
-        return `Error in alignment ideal picker`;
+        return `Error in alignment ideal picker. Alignment out of bounds`;
     }
   };
 }
