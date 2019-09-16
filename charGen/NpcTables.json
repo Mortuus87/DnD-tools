@@ -1,26 +1,35 @@
 
 {
     "apperance":[
+        "Bad breath",
+        "Strong body odor",
+        "Pleasant smelling (perfumed)",
+        "Sweaty",
+
         "Distinctive jewelry: earrings, necklace, circlet, bracelets",
+        "Distinctive scar",
         "Piercings",
         "Flamboyant or outlandish clothes",
         "Formal, clean clothes",
         "Ragged, dirty clothes",
+        "Tattoos",
+        "Braided beard or hair",
+
         "Pronounced scar",
         "Missing teeth",
-        "Missing fingers",
+        "Missing finger(s)",
         "Unusual eye color (or two different colors)",
-        "Tattoos",
         "Birthmark",
         "Unusual skin color",
         "Bald",
-        "Braided beard or hair",
-        "Unusual hair color",
-        "Nervous eye twitch",
         "Distinctive nose",
         "Distinctive posture (crooked or rigid)",
         "Exceptionally beautiful",
-        "Exceptionally ugly"
+        "Exceptionally ugly",
+        "Unusual hair color",
+        "Nervous eye twitch",
+        "Shaky hands",
+        "Walks with a limp"
     ],
 
     
@@ -179,6 +188,11 @@
         "Secret crime or misdeed",
         "Possession of forbidden lore",
         "Foolhardy bravery"
+    ],
+    "contacts":[
+        "Military officer",
+        "Noble/influential person"
     ]
+
 }
 
