@@ -1,0 +1,29 @@
+{
+    "level": {
+        "low": [
+            "an unassuming mundane book",
+            "a collection of papers in a portfolio rather than a bound book",
+            "has a broken spine, with loose pages poking out from a flimsy cooking cover",
+            "small ornate clasped book"
+        ],
+        "medium": [
+            "leatherbound book with a locked cover",
+            "sturdy"
+        ],
+        "high": [
+            "Golden details, sturdy cover, advanced lock"
+        ]
+        
+    },
+    "generalDescription": {
+        "low": [
+            "dirty or damaged"
+        ],
+        "color": [
+            "blue",
+            "black",
+            "red",
+            "grey"
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+#abilities input, #abilities th {
+    text-align: center;
+}
+.narrow-number-input {
+    width: 4em;
+}
+.narrow-text-input {
+    width: 3em;
+}
+.unstyled-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+.unstyled-button:hover {
+    text-decoration: underline;
+}
+.no-flex-shrink {
+    flex-shrink: 0;
+}
