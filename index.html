@@ -20,27 +20,26 @@
       <div class="col">
         <h1>Character generator</h1>
       </div>
-      <section id="global options">
-        <input type="checkbox" title="This does nothing" name="dummy" id="dummy">
-      </section>
     </div>
 
     <!-- first row -->
-    <div class="row">
+    <div class="row mt-4">
 
       <!-- ability score -->
-      <div class="col-lg-6">
+      <div class="col-12 col-lg-6 mb-4">
         <section id="abilities">
-
-          <h2>Ability Score</h2>
+          
           <div class="card">
+            <div class="card-header">
+              <h2>Ability Score</h2>
+            </div>
             <div class="card-body">
 
               <div class="row">
                 <div class="col">
                   <select id="point-amount-select" class="w-100 custom-select">
-                    <option value="15">Standard Fantasy (15 points)</option>
                     <option value="10">Low-powered Fantasy (10 points)</option>
+                    <option value="15" selected>Standard Fantasy (15 points)</option>
                     <option value="20">High Fantasy (20 points)</option>
                     <option value="25">Epic Fantasy (25 points)</option>
                   </select>
@@ -57,31 +56,23 @@
                 </div>
               </div>
 
-
               <div class="row">
                 <div class="col">
-
                   <div class="d-flex flex-nowrap">
-
-
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <div class="input-group-text">Available</div>
                       </div>
                       <input type="text" id="ability-points-available" class="input-sm form-control" value="15">
                     </div>
-
                     <div class="px-1"></div>
-
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <div class="input-group-text">Used</div>
                       </div>
                       <input type="text" id="ability-points-used" class="input-sm form-control" readonly="readonly">
                     </div>
-
                   </div>
-
                 </div>
               </div>
 
@@ -90,34 +81,35 @@
 
                 </div>
               </div>
-
             </div>
           </div>
-
         </section>
       </div>
 
       <!-- traits -->
-      <div class="col-lg-6">
+      <div class="col-12 col-lg-6 mb-4">
         <section id="traits">
-          <h2>
-            Character Traits
-          </h2>
+
           <div class="card">
+            <div class="card-header">
+              <h2>
+                Character Traits
+              </h2>
+            </div>
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <button type="button" class="btn btn-block btn-primary btn-sm" id="generate-traits">Generate
-                    new traits</button>
-                  <div class="output mt-2">
+                  <div class="output mb-2">
                     loading...
                   </div>
+                  <button type="button" class="btn btn-block btn-primary btn-sm" id="generate-traits">Generate
+                    new traits</button>
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <section id="export">
+        <!-- <section id="export">
           <h2>
             Export character
           </h2>
@@ -132,79 +124,78 @@
               </div>
             </div>
           </div>
-        </section>
+        </section> -->
       </div>
       </section>
     </div>
 
     <!-- second row -->
-    <div class="row">
+    <div class="row mb-4">
 
       <!-- Constructed by js in the case of a caster -->
       <div class="col">
         <section id="spells">
-          <h2>
-            Spellbook
-          </h2>
-
-          <div class="card card-body">
+          <div class="card">
             <!-- start of card -->
-
-            <div class="row">
-              <div class="col-sm-5 col-xs-12 pr-sm-1 mb-2">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Level</span>
+            <div class="card-header">
+              <h2>Spellbook</h2>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-5 col-xs-12 pr-sm-1 mb-2">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Level</span>
+                    </div>
+                    <input type="number" class="form-control" id="class-level" value="1" min="1" required>
                   </div>
-                  <input type="number" class="form-control" id="class-level" value="1" min="1" required>
+                </div>
+
+                <div class="col-sm-7 col-xs-12 pl-sm-1 mb-2">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Modifier</span>
+                    </div>
+                    <select class="input-group-item custom-select" id="ability-mod">
+                      <option value="int-mod">Intelligence</option>
+                      <option value="wis-mod">Wisdom</option>
+                      <option value="cha-mod">Charisma</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div class="col-sm-7 col-xs-12 pl-sm-1 mb-2">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Modifier</span>
+              <div class="row">
+                <div class="col mb-2">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Caster</span>
+                    </div>
+                    <select class="custom-select" id="class-type">
+                      <option value="sorcerer/wizard">Wizard</option>
+                      <option value="magus">Magus</option>
+                      <option value="bard">Bard</option>
+                      <option value="cleric/oracle">Cleric and Oracle</option>
+                    </select>
                   </div>
-                  <select class="input-group-item custom-select" id="ability-mod">
-                    <option value="int-mod">Intelligence</option>
-                    <option value="wis-mod">Wisdom</option>
-                    <option value="cha-mod">Charisma</option>
-                  </select>
                 </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col mb-2">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Caster</span>
-                  </div>
-                  <select class="custom-select" id="class-type">
-                    <option value="sorcerer/wizard">Wizard</option>
-                    <option value="magus">Magus</option>
-                    <option value="bard">Bard</option>
-                    <option value="cleric/oracle">Cleric and Oracle</option>
-                  </select>
-                </div>
+              <button class="btn btn-primary btn-sm" type="button" id="generate-spells">Generate a spell list</button>
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="expanded-spell-adding" value="option1">
+                <label class="form-check-label" for="expanded-spell-adding">Advanced spell picking</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="simple-presentation" value="option2">
+                <label class="form-check-label" for="simple-presentation">Simple presentation</label>
+              </div>
+
+              <div class="output">
+                <p>Press the Generate button</p>
               </div>
             </div>
-
-            <button class="btn btn-primary btn-sm" type="button" id="generate-spells">Generate a spell list</button>
-
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="expanded-spell-adding" value="option1">
-              <label class="form-check-label" for="expanded-spell-adding">Advanced spell picking</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="simple-presentation" value="option2">
-              <label class="form-check-label" for="simple-presentation">Simple presentation</label>
-            </div>
-
-            <div class="output">
-              <p>Press the Generate button</p>
-            </div>
-
             <!-- end of card -->
           </div>
         </section>
