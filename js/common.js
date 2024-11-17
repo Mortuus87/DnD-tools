@@ -17,6 +17,12 @@ function shuffle(array) {
   return array;
 };
 
+/**
+ * will probably nt be accurate on unusually high numbers, 
+ * like 101st, but it should work fine for spell level and HD use cases. 
+ * @param {*} number 
+ * @returns string
+ */
 function plural(number) {
   switch (number) {
     case 1:
@@ -30,9 +36,13 @@ function plural(number) {
   };
 };
 
+/**
+ * Random number between 0 and n-1 input length of array 
+ * to return random index of given array 
+ * i.e. input of 10 = output of 0-9
+ * @param {*} r 
+ * @returns 
+ */
 function random(r) {
-    //random number between 0 and n-1
-    //input length of array to return random index of given array
-    //i.e. input of 10 = output of 0-9
     return Math.floor(Math.random() * r);
 };
